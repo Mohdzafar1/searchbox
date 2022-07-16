@@ -1,23 +1,38 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import Data from "./Data"
+
 
 function App() {
+  const[text,setText]=useState('')
+    
+   const changeHandler=(e)=>{
+    setText(e.target.value)
+   }
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container text-center">
+    <div className="row">
+      <div className="col-lg-4 pt-5">
+      <input value={text} type="text" className="form-control" onChange={changeHandler}/>
+        {
+          Data.filter((val)=>{
+          
+            if(text==""){
+              return val;
+            }else if(val.name.toLowerCase().startsWith(text.toLowerCase())){
+              return val;
+            }
+
+          }).map((value)=>{
+            return(
+              <h5 className="pt-5">{value.name}</h5>
+            )
+          })
+        }
+      </div>
+    </div>
+      
     </div>
   );
 }
